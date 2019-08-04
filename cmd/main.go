@@ -29,7 +29,7 @@ func main() {
 		go func(channel chan server) {
 			// ping servers
 			cmd, _ := exec.Command("ping", text, "-c 5").Output()
-			if strings.Contains(string(cmd), "statistics") {
+			if strings.Contains(string(cmd), "time=") {
 				s := strings.Split(string(cmd), "\n")
 				s = strings.Split(s[len(s)-2], "=")
 				s = strings.Split(s[1], "/")
@@ -54,7 +54,7 @@ func main() {
 		}
 	}
 	sort.Slice(results, func(i int, j int) bool {
-		return results[i].ping > results[j].ping
+		return results[i].ping < results[j].ping
 	})
 	fmt.Println(results[:4])
 
